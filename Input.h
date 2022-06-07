@@ -17,8 +17,8 @@ bool checkDataAlgorithms(string data) {
                            "heap-sort",
                            "merge-sort",
                            "quick-sort",
-                           "radix-sort",
                            "counting-sort",
+                           "radix-sort",
                            "flash-sort"};
 
     for (int i = 0; i < 11; i++)
