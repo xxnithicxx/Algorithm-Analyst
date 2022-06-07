@@ -1,4 +1,5 @@
 #include "Input.h"
+#include "Data.h"
 using namespace std;
 
 void bubbleSort(int *arr, int n, int type)
@@ -18,10 +19,12 @@ void bubbleSort(int *arr, int n, int type)
         std::cout << "Bubble sort time: " << time(NULL) - start << " seconds" << std::endl;
 }
 
-int main(int argc, char **argv)
-{
-    int n = getUserInput(argc, argv);
-    cout << n;
 
+int main(int argc, char *argv[])
+{
+    int command = getUserInput(argc, argv);
+    cout << command;
+
+    int n;
     return 0;
 }
