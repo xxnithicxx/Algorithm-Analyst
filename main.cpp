@@ -19,13 +19,12 @@ void bubbleSort(int *arr, int n, int type)
         std::cout << "Bubble sort time: " << time(NULL) - start << " seconds" << std::endl;
 }
 
+
 int main(int argc, char *argv[])
 {
     int command = getUserInput(argc, argv);
     cout << command;
 
     int n;
-
-
     return 0;
 }
