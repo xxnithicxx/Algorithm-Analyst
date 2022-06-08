@@ -1,5 +1,6 @@
 #include "Input.h"
 #include "Data.h"
+#include "Operation.h"
 using namespace std;
 
 int main(int argc, char *argv[])

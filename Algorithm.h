@@ -2,7 +2,7 @@
 #include "Base.h"
 
 // Select Sort
-void SelectionSort(int *arr, int n)
+void selectionSort(int *arr, int n)
 {
     for (int i = 0; i < n - 1; i++)
     {
@@ -22,7 +22,7 @@ void SelectionSort(int *arr, int n)
 }
 
 // Insertion Sort
-void InsertionSort(int *arr, int n)
+void insertionSort(int *arr, int n)
 {
     for (int i = 1; i < n; i++)
     {
@@ -38,7 +38,7 @@ void InsertionSort(int *arr, int n)
 }
 
 // Bubble Sort
-void BubbleSort(int *arr, int n)
+void bubbleSort(int *arr, int n)
 {
     for (int i = 0; i < n - 1; i++)
     {
@@ -55,7 +55,7 @@ void BubbleSort(int *arr, int n)
 }
 
 // Shaker Sort
-void ShakerSort(int *arr, int n)
+void shakerSort(int *arr, int n)
 {
     int left = 0;
     int right = n - 1;
@@ -85,7 +85,7 @@ void ShakerSort(int *arr, int n)
 }
 
 // Shell Sort
-void ShellSort(int *arr, int n)
+void shellSort(int *arr, int n)
 {
     int gap = n / 2;
     while (gap > 0)
@@ -147,7 +147,7 @@ void heapify(int *arr, int n, int i)
     }
 }
 
-void heapsort(int *&arr, int n)
+void heapSort(int *&arr, int n)
 {
     // Build heap (rearrange array)
     for (int i = n / 2 - 1; i >= 0; i--)

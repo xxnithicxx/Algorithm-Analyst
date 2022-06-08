@@ -31,3 +31,5 @@ using namespace std;
 #define SELECTION_SORT "selection-sort"
 #define SELECTION_SORT "selection-sort"
 #define SELECTION_SORT "selection-sort"
+
+typedef void (*fptr)(int *, int);

@@ -7,8 +7,7 @@ int getInputOrder(string order)
 		"-rand",
 		"-nsorted",
 		"-sorted",
-		"-rev"
-	};
+		"-rev"};
 
 	for (int i = 0; i < 4; i++)
 		if (order == InputOrder[i])
@@ -30,6 +29,12 @@ string getData(char **argv, int comment, int &n)
 		n = atoi(argv[3]);
 		ofstream fileName("input.txt");
 
+		if (!fileName)
+		{
+			cout << "Error opening file" << endl;
+			return "";
+		}
+
 		int order = getInputOrder(argv[4]);
 		int *arr = new int[n];
 		GenerateData(arr, n, order);
@@ -46,28 +51,41 @@ string getData(char **argv, int comment, int &n)
 	{
 		n = atoi(argv[3]);
 		// Create 4 file with all order
-		int *arr = new int[n];
-		for (int i = 0; i < 4; i++)
+		int *randArr = new int[n];
+		int *nsortArr = new int[n];
+		int *sortArr = new int[n];
+		int *revArr = new int[n];
+
+		ofstream fileName("input.txt");
+		if (!fileName.is_open())
 		{
-			string name = "input_";
-			name = name + to_string(i + 1) + ".txt";
-			ofstream fileName(name);
-
-			GenerateData(arr, n, i);
-			fileName << n << endl;
-			for (int j = 0; j < n; j++)
-			{
-				fileName << arr[j] << " ";
-			}
-
-			fileName.close();
+			cout << "Can't open file" << endl;
+			exit;
 		}
-		return "All case";
+
+		GenerateRandomData(randArr, n);
+		GenerateNearlySortedData(nsortArr, n);
+		GenerateSortedData(sortArr, n);
+		GenerateReverseData(revArr, n);
+
+		fileName << n << endl;
+		for (int i = 0; i < n; i++)
+			fileName << randArr[i] << " " << nsortArr[i] << " " << sortArr[i] << " " << revArr[i] << endl;
+
+		fileName.close();
+
+		return "input.txt";
 	}
 	case 5:
 	{
 		n = atoi(argv[4]);
 		ofstream fileName("input.txt");
+
+		if (!fileName)
+		{
+			cout << "Error opening file" << endl;
+			return "";
+		}
 
 		int order = getInputOrder(argv[5]);
 		int *arr = new int[n];
