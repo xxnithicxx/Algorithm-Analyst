@@ -33,3 +33,4 @@ using namespace std;
 #define SELECTION_SORT "selection-sort"
 
 typedef void (*fptr)(int *, int);
+typedef int (*fptrC)(int *, int);

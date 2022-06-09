@@ -2,8 +2,9 @@
 #include "Base.h"
 
 // Select Sort
-void selectionSort(int *arr, int n)
+int selectionSortC(int *arr, int n)
 {
+    int count;
     for (int i = 0; i < n - 1; i++)
     {
         int min = i;
@@ -19,11 +20,13 @@ void selectionSort(int *arr, int n)
             arr[min] = temp;
         }
     }
+    return count;
 }
 
 // Insertion Sort
-void insertionSort(int *arr, int n)
+int insertionSortC(int *arr, int n)
 {
+    int count;
     for (int i = 1; i < n; i++)
     {
         int temp = arr[i];
@@ -35,11 +38,13 @@ void insertionSort(int *arr, int n)
         }
         arr[j + 1] = temp;
     }
+    return count;
 }
 
 // Bubble Sort
-void bubbleSort(int *arr, int n)
+int bubbleSortC(int *arr, int n)
 {
+    int count;
     for (int i = 0; i < n - 1; i++)
     {
         for (int j = 0; j < n - i - 1; j++)
@@ -52,11 +57,13 @@ void bubbleSort(int *arr, int n)
             }
         }
     }
+    return count;
 }
 
 // Shaker Sort
-void shakerSort(int *arr, int n)
+int shakerSortC(int *arr, int n)
 {
+    int count;
     int left = 0;
     int right = n - 1;
     while (left < right)
@@ -82,11 +89,13 @@ void shakerSort(int *arr, int n)
         }
         left++;
     }
+    return count;
 }
 
 // Shell Sort
-void shellSort(int *arr, int n)
+int shellSortC(int *arr, int n)
 {
+    int count;
     int gap = n / 2;
     while (gap > 0)
     {
@@ -103,6 +112,7 @@ void shellSort(int *arr, int n)
         }
         gap /= 2;
     }
+    return count;
 }
 
 // Heap Sort
@@ -147,8 +157,9 @@ void heapify(int *arr, int n, int i)
     }
 }
 
-void heapSort(int *arr, int n)
+int heapSortC(int *arr, int n)
 {
+    int count;
     // Build heap (rearrange array)
     for (int i = n / 2 - 1; i >= 0; i--)
     {
@@ -161,11 +172,13 @@ void heapSort(int *arr, int n)
         swap(&arr[0], &arr[i]);
         heapify(arr, i, 0);
     }
+    return count;
 }
 
 // Merge Sort
-void mergeSort(int *arr, int n)
+int mergeSortC(int *arr, int n)
 {
+    int count;
     // Base case
     if (n <= 1)
         return;
@@ -181,8 +194,8 @@ void mergeSort(int *arr, int n)
         right[i - mid] = arr[i];
 
     // Sort the two halves
-    mergeSort(left, mid);
-    mergeSort(right, n - mid);
+    mergeSortC(left, mid);
+    mergeSortC(right, n - mid);
 
     // Merge the two halves
     int i = 0, j = 0, k = 0;
@@ -205,6 +218,7 @@ void mergeSort(int *arr, int n)
     // Free the memory allocated to the two halves
     delete[] left;
     delete[] right;
+    return count;
 }
 
 // Quick Sort
@@ -255,10 +269,11 @@ int partition(int arr[], int first, int last)
     return pivotIndex;
 }
 
-void quicksort(int arr[], int first, int last)
+int quicksort(int arr[], int first, int last)
 {
+    int count;
     if (last - first + 1 < 10)
-        insertionSort(arr + first, last - first + 1);
+        insertionSortC(arr + first, last - first + 1);
     else
     {
         // Create the partition: S1 | Pivot | S2
@@ -267,16 +282,18 @@ void quicksort(int arr[], int first, int last)
         quicksort(arr, first, pivotIndex - 1);
         quicksort(arr, pivotIndex + 1, last);
     }
+    return count;
 }
 
-void quickSort(int arr[], int n)
+int quickSortC(int arr[], int n)
 {
-    quicksort(arr, 0, n - 1);
+    return quicksort(arr, 0, n - 1);
 }
 
 // Counting sort
-void countingSort(int arr[], int n)
+int countingSortC(int arr[], int n)
 {
+    int ccount;
     int max = arr[0];
     for (int i = 1; i < n; i++)
         if (arr[i] > max)
@@ -298,11 +315,13 @@ void countingSort(int arr[], int n)
         arr[i] = output[i];
     delete[] count;
     delete[] output;
+    return ccount;
 }
 
 // Radix sort
-void radixSort(int arr[], int n)
+int radixSortC(int arr[], int n)
 {
+    int rcount;
     int max = arr[0];
     for (int i = 1; i < n; i++)
         if (arr[i] > max)
@@ -329,11 +348,13 @@ void radixSort(int arr[], int n)
         delete[] output;
         exp *= 10;
     }
+    return rcount;
 }
 
 // Flash Sort
-void flashSort(int arr[], int n)
+int flashSortC(int arr[], int n)
 {
+    int fcount;
     int max = arr[0];
     for (int i = 1; i < n; i++)
         if (arr[i] > max)
@@ -360,4 +381,5 @@ void flashSort(int arr[], int n)
         delete[] output;
         exp *= 10;
     }
+    return fcount;
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include "Algorithm.h"
+#include "AlgorithmC.h"
 
 // Take user mode parameters
 string getMode(char *argv[])
@@ -52,12 +53,28 @@ fptr getAlgorithmAddress(int alg)
         quickSort,
         countingSort,
         radixSort,
-        flashSort
-    };
+        flashSort};
     return Algorithms[alg];
 }
 
-int *readFile(string name, int &numberOfElements)
+fptrC getAlgorithmAddressC(int alg)
+{
+    int (*Algorithms[11])(int *, int) = {
+        selectionSortC,
+        insertionSortC,
+        bubbleSortC,
+        shakerSortC,
+        shellSortC,
+        heapSortC,
+        mergeSortC,
+        quickSortC,
+        countingSortC,
+        radixSortC,
+        flashSortC};
+    return Algorithms[alg];
+}
+
+int *readFileSingle(string name, int &numberOfElements)
 {
     ifstream fileIn;
     fileIn.open(name);
@@ -76,22 +93,65 @@ int *readFile(string name, int &numberOfElements)
     return array;
 }
 
+int **readFileQuac(string name, int &numberOfElements)
+{
+    ifstream fileIn;
+    fileIn.open(name);
+    if (!fileIn.is_open())
+    {
+        cout << "File not found" << endl;
+        return NULL;
+    }
+
+    fileIn >> numberOfElements;
+    int **listArr = new int *[4];
+    for (int i = 0; i < 4; i++)
+    {
+        listArr[i] = new int[numberOfElements];
+    }
+
+    while (!fileIn.eof())
+    {
+        for (int i = numberOfElements; i < numberOfElements; i++)
+        {
+            for (int j = 0; j < 4; j++)
+            {
+                fileIn >> listArr[j][i];
+            }
+        }
+    }
+
+    return listArr;
+}
+
 void operatorAlgorithm(int sort, string namePath, int mode)
 {
+    int numberOfElements;
+    if (mode & COMP)
+        fptr funct = getAlgorithmAddress(sort);
+    else
+        fptrC funct = getAlgorithmAddressC(sort);
+    int *array = readFileSingle(namePath, numberOfElements);
+
     time_t start, end;
-    if (!(mode & TIME))
-    {
-        start = LONG_MIN;
-    }   
-    else 
+    if (mode & TIME)
     {
         start = clock();
     }
+    else
+    {
+        start = LONG_MIN;
+    }
 
-    int numberOfElements;
-    fptr funct = getAlgorithmAddress(sort);
-    int *array = readFile(namePath, numberOfElements);
-
+    // Call the function
     funct(array, numberOfElements);
 
+    if (mode & TIME)
+    {
+        end = clock();
+    }
+    else
+    {
+        end = LONG_MIN;
+    }
 }
