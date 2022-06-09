@@ -116,28 +116,28 @@ int shellSortC(int *arr, int n)
 }
 
 // Heap Sort
-int leftChild(int i)
+int leftChildC(int i)
 {
     return i << 1;
 }
 
-int rightChild(int i)
+int rightChildC(int i)
 {
     return (-(~(i << 1)));
 }
 
-void swap(int *a, int *b)
+void swapC(int *a, int *b)
 {
     int temp = *a;
     *a = *b;
     *b = temp;
 }
 
-void heapify(int *arr, int n, int i)
+void heapifyC(int *arr, int n, int i)
 {
     int largest = i;
-    int l = leftChild(i);
-    int r = rightChild(i);
+    int l = leftChildC(i);
+    int r = rightChildC(i);
 
     if (l < n && arr[l] > arr[largest])
         largest = l;
@@ -153,7 +153,7 @@ void heapify(int *arr, int n, int i)
         arr[largest] = temp;
 
         // Recursively heapify the affected sub-tree
-        heapify(arr, n, largest);
+        heapifyC(arr, n, largest);
     }
 }
 
@@ -163,14 +163,14 @@ int heapSortC(int *arr, int n)
     // Build heap (rearrange array)
     for (int i = n / 2 - 1; i >= 0; i--)
     {
-        heapify(arr, n, i);
+        heapifyC(arr, n, i);
     }
 
     for (int i = n - 1; i >= 0; i--)
     {
         // Swap current element with the last element and start heapifying from the root
-        swap(&arr[0], &arr[i]);
-        heapify(arr, i, 0);
+        swapC(&arr[0], &arr[i]);
+        heapifyC(arr, i, 0);
     }
     return count;
 }
@@ -222,7 +222,7 @@ int mergeSortC(int *arr, int n)
 }
 
 // Quick Sort
-int sortFirstMiddleLast(int arr[], int first, int last)
+int sortFirstMiddleLastC(int arr[], int first, int last)
 {
     int mid = first + (last - first) / 2;
     if (arr[first] > arr[mid])
@@ -234,10 +234,10 @@ int sortFirstMiddleLast(int arr[], int first, int last)
     return mid;
 }
 
-int partition(int arr[], int first, int last)
+int partitionC(int arr[], int first, int last)
 {
     // Choose pivot using median-of-three selection
-    int pivotIndex = sortFirstMiddleLast(arr, first, last);
+    int pivotIndex = sortFirstMiddleLastC(arr, first, last);
     // Reposition pivot so it is last in the array
     swap(arr[pivotIndex], arr[last - 1]);
     pivotIndex = last - 1;
@@ -269,7 +269,7 @@ int partition(int arr[], int first, int last)
     return pivotIndex;
 }
 
-int quicksort(int arr[], int first, int last)
+int QuicksortC(int arr[], int first, int last)
 {
     int count;
     if (last - first + 1 < 10)
@@ -277,17 +277,17 @@ int quicksort(int arr[], int first, int last)
     else
     {
         // Create the partition: S1 | Pivot | S2
-        int pivotIndex = partition(arr, first, last);
+        int pivotIndex = partitionC(arr, first, last);
         // Sort subarrays S1 and S2
-        quicksort(arr, first, pivotIndex - 1);
-        quicksort(arr, pivotIndex + 1, last);
+        QuicksortC(arr, first, pivotIndex - 1);
+        QuicksortC(arr, pivotIndex + 1, last);
     }
     return count;
 }
 
 int quickSortC(int arr[], int n)
 {
-    return quicksort(arr, 0, n - 1);
+    return QuicksortC(arr, 0, n - 1);
 }
 
 // Counting sort

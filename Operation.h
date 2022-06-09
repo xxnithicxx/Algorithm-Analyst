@@ -127,10 +127,7 @@ int **readFileQuac(string name, int &numberOfElements)
 void operatorAlgorithm(int sort, string namePath, int mode)
 {
     int numberOfElements;
-    if (mode & COMP)
-        fptr funct = getAlgorithmAddress(sort);
-    else
-        fptrC funct = getAlgorithmAddressC(sort);
+    fptr funct = getAlgorithmAddress(sort);
     int *array = readFileSingle(namePath, numberOfElements);
 
     time_t start, end;
@@ -146,12 +143,5 @@ void operatorAlgorithm(int sort, string namePath, int mode)
     // Call the function
     funct(array, numberOfElements);
 
-    if (mode & TIME)
-    {
-        end = clock();
-    }
-    else
-    {
-        end = LONG_MIN;
-    }
+    return;
 }
