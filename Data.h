@@ -45,6 +45,7 @@ string getData(char **argv, int comment, int &n)
 		}
 
 		fileName.close();
+		delete[] arr;
 		return "input.txt";
 	};
 	case 3:
@@ -74,6 +75,11 @@ string getData(char **argv, int comment, int &n)
 
 		fileName.close();
 
+		delete[] randArr;
+		delete[] nsortArr;
+		delete[] sortArr;
+		delete[] revArr;
+
 		return "input.txt";
 	}
 	case 5:
@@ -98,6 +104,7 @@ string getData(char **argv, int comment, int &n)
 		}
 
 		fileName.close();
+		delete[] arr;
 		return "input.txt";
 	};
 	default:

@@ -181,7 +181,7 @@ int mergeSortC(int *arr, int n)
     int count;
     // Base case
     if (n <= 1)
-        return;
+        return count;
 
     // Split the array into two halves
     int mid = n / 2;
