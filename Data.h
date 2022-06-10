@@ -16,7 +16,7 @@ int getInputOrder(string order)
 	return -1;
 }
 
-string getData(char **argv, int comment, int &n)
+string getData(char **argv, int comment)
 {
 	switch (comment)
 	{
@@ -26,7 +26,7 @@ string getData(char **argv, int comment, int &n)
 		return argv[4];
 	case 2:
 	{
-		n = atoi(argv[3]);
+		int n = atoi(argv[3]);
 		ofstream fileName("input.txt");
 
 		if (!fileName)
@@ -50,7 +50,7 @@ string getData(char **argv, int comment, int &n)
 	};
 	case 3:
 	{
-		n = atoi(argv[3]);
+		int n = atoi(argv[3]);
 		// Create 4 file with all order
 		int *randArr = new int[n];
 		int *nsortArr = new int[n];
@@ -84,7 +84,7 @@ string getData(char **argv, int comment, int &n)
 	}
 	case 5:
 	{
-		n = atoi(argv[4]);
+		int n = atoi(argv[4]);
 		ofstream fileName("input.txt");
 
 		if (!fileName)
@@ -111,4 +111,126 @@ string getData(char **argv, int comment, int &n)
 		break;
 	}
 	return "Undefined data input";
+}
+
+string getMode(char *argv[])
+{
+    string mode = argv[1];
+    return mode;
+}
+
+// Take user output parameters (1, 2, 3)
+int getOutputParameter(int argc, char *argv[])
+{
+    string outputParameter = argv[argc - 1];
+    if (outputParameter == "-time")
+        return TIME;
+    else if (outputParameter == "-comp")
+        return COMP;
+    else
+        return BOTH;
+    return -1;
+}
+
+int getAlgorithm(string userAlg)
+{
+    string Algorithms[] = {"selection-sort",
+                           "insertion-sort",
+                           "bubble-sort",
+                           "shaker-sort",
+                           "shell-sort",
+                           "heap-sort",
+                           "merge-sort",
+                           "quick-sort",
+                           "counting-sort",
+                           "radix-sort",
+                           "flash-sort"};
+    for (int i = 0; i < 11; i++)
+        if (userAlg == Algorithms[i])
+            return i;
+
+    return -1;
+}
+
+fptr getAlgorithmAddress(int alg)
+{
+    void (*Algorithms[11])(int *, int) = {
+        selectionSort,
+        insertionSort,
+        bubbleSort,
+        shakerSort,
+        shellSort,
+        heapSort,
+        mergeSort,
+        quickSort,
+        countingSort,
+        radixSort,
+        flashSort};
+    return Algorithms[alg];
+}
+
+int *readFileSingle(string name, int &numberOfElements)
+{
+    ifstream fileIn;
+    fileIn.open(name);
+    if (!fileIn.is_open())
+    {
+        cout << "File not found" << endl;
+        return NULL;
+    }
+    fileIn >> numberOfElements;
+    int *array = new int[numberOfElements];
+    for (int i = 0; i < 100; i++)
+    {
+        fileIn >> array[i];
+    }
+    fileIn.close();
+    return array;
+}
+
+FileQuac readFileQuac(string name, int &numberOfElements)
+{
+    ifstream fileIn;
+    fileIn.open(name);
+    if (!fileIn.is_open())
+    {
+        cout << "File not found" << endl;
+        exit;
+    }
+
+    fileIn >> numberOfElements;
+
+    FileQuac arr;
+    int *arrRand = new int[numberOfElements];
+    int *arrSort = new int[numberOfElements];
+    int *arrNsort = new int[numberOfElements];
+    int *arrRev = new int[numberOfElements];
+
+    while (!fileIn.eof())
+    {
+        for (int i = numberOfElements; i < numberOfElements; i++)
+        {
+            fileIn >> arrRand[i] >> arrSort[i] >> arrNsort[i] >> arrRev[i];
+        }
+    }
+
+    arr.rand = arrRand;
+    arr.sort = arrSort;
+    arr.nsort = arrNsort;
+    arr.rev = arrRev;
+
+    return arr;
+}
+
+PosOfAlgo getPosAlgo(int argc, char* argv[], int command) {
+    PosOfAlgo posAlgo;
+    posAlgo.pos1 = -1;
+    posAlgo.pos2 = -1;
+    
+    posAlgo.pos1 = getAlgorithm(argv[2]);
+    if (command > 3) {
+        posAlgo.pos2 = getAlgorithm(argv[3]);
+    }
+
+    return posAlgo;
 }

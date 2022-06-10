@@ -4,21 +4,28 @@
 // Select Sort
 void selectionSort(int *arr, int n)
 {
+    // long comp = 0;
     for (int i = 0; i < n - 1; i++)
     {
+        //comp++;
         int min = i;
         for (int j = i + 1; j < n; j++)
         {
-            if (arr[j] < arr[min])
+            //comp++;
+            if (arr[j] < arr[min]) {
                 min = j;
+                //comp++;
+            }
         }
         if (min != i)
         {
+            //comp++;
             int temp = arr[i];
             arr[i] = arr[min];
             arr[min] = temp;
         }
     }
+    //cout<<comp<<endl;
 }
 
 // Insertion Sort
@@ -220,10 +227,11 @@ int sortFirstMiddleLast(int arr[], int first, int last)
     return mid;
 }
 
-int partition(int arr[], int first, int last)
+int partition(int arr[], int first, int last, long long& comp)
 {
     // Choose pivot using median-of-three selection
     int pivotIndex = sortFirstMiddleLast(arr, first, last);
+    comp += 3;
     // Reposition pivot so it is last in the array
     swap(arr[pivotIndex], arr[last - 1]);
     pivotIndex = last - 1;
@@ -233,18 +241,24 @@ int partition(int arr[], int first, int last)
     int done = false;
     while (!done)
     {
+        comp++;
         // Locate first entry on left that is >= pivot
-        while (arr[indexFromLeft] < pivot)
+        while (arr[indexFromLeft] < pivot) {
+            comp++;
             indexFromLeft++;
+        }
         // Locate first entry on right that is <= pivot
-        while (arr[indexFromRight] > pivot)
-            indexFromRight++;
+        while (arr[indexFromRight] > pivot) {
+            comp++;
+            indexFromRight--;
+        }
         // Swap the two found entries
-        if (indexFromLeft < indexFromRight)
+        if (indexFromLeft <= indexFromRight)
         {
+            comp++;
             swap(arr[indexFromLeft], arr[indexFromRight]);
             indexFromLeft++;
-            indexFromRight++;
+            indexFromRight--;
         }
         else
             done = true;
@@ -255,23 +269,29 @@ int partition(int arr[], int first, int last)
     return pivotIndex;
 }
 
-void quicksort(int arr[], int first, int last)
+int quicksort(int arr[], int first, int last)
 {
+    long long subComp = 0;
     if (last - first + 1 < 10)
         insertionSort(arr + first, last - first + 1);
     else
     {
         // Create the partition: S1 | Pivot | S2
-        int pivotIndex = partition(arr, first, last);
+        int pivotIndex = partition(arr, first, last, subComp);
         // Sort subarrays S1 and S2
-        quicksort(arr, first, pivotIndex - 1);
-        quicksort(arr, pivotIndex + 1, last);
+       
+        subComp += quicksort(arr, first, pivotIndex - 1);
+        subComp += quicksort(arr, pivotIndex + 1, last);
     }
+    return subComp;
 }
 
 void quickSort(int arr[], int n)
 {
-    quicksort(arr, 0, n - 1);
+    long long comp;
+    comp = quicksort(arr, 0, n - 1);
+    //cout<<"hello world"<<endl;
+    cout<<comp<<endl;
 }
 
 // Counting sort
