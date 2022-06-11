@@ -2,7 +2,7 @@
 #include "Base.h"
 
 // Select Sort
-void selectionSort(int *arr, int n)
+long long selectionSort(int *arr, int n)
 {
     long long comp = 0;
     for (int i = 0; i < n - 1 && ++comp; i++)
@@ -21,10 +21,11 @@ void selectionSort(int *arr, int n)
             arr[min] = temp;
         }
     }
+    return comp;
 }
 
 // Insertion Sort
-void insertionSort(int *arr, int n)
+long long insertionSort(int *arr, int n)
 {
     long long comp = 0;
     for (int i = 1; i < n && ++comp; i++)
@@ -38,10 +39,11 @@ void insertionSort(int *arr, int n)
         }
         arr[j + 1] = temp;
     }
+    return comp;
 }
 
 // Bubble Sort
-void bubbleSort(int *arr, int n)
+long long bubbleSort(int *arr, int n)
 {
     for (int i = 0; i < n - 1 && ++comp; i++)
     {   
@@ -55,10 +57,11 @@ void bubbleSort(int *arr, int n)
             }
         }
     }
+    return comp;
 }
 
 // Shaker Sort
-void shakerSort(int *arr, int n)
+long long shakerSort(int *arr, int n)
 {   
     long long comp = 0;
     int left = 0;
@@ -86,10 +89,11 @@ void shakerSort(int *arr, int n)
         }
         left++;
     }
+    return comp;
 }
 
 // Shell Sort
-void shellSort(int *arr, int n)
+long long shellSort(int *arr, int n)
 {   
     long long comp = 0;
     int gap = n / 2;
@@ -108,6 +112,7 @@ void shellSort(int *arr, int n)
         }
         gap /= 2;
     }
+    return comp;
 }
 
 // Heap Sort
@@ -154,7 +159,7 @@ long long heapify(int *arr, int n, int i)
     return comp;
 }
 
-void heapSort(int *arr, int n)
+long long heapSort(int *arr, int n)
 {   
     long long comp = 0;
     // Build heap (rearrange array)
@@ -169,10 +174,11 @@ void heapSort(int *arr, int n)
         swap(&arr[0], &arr[i]);
         comp += heapify(arr, i, 0);
     }
+    return comp;
 }
 
 // Merge Sort
-void mergeSort(int *arr, int n)
+long long mergeSort(int *arr, int n)
 {   
     long long comp = 0;
     // Base case
@@ -214,6 +220,7 @@ void mergeSort(int *arr, int n)
     // Free the memory allocated to the two halves
     delete[] left;
     delete[] right;
+    return comp;
 }
 
 // Quick Sort
@@ -284,16 +291,15 @@ long long quicksort(int arr[], int first, int last)
     return subComp;
 }
 
-void quickSort(int arr[], int n)
+long long quickSort(int arr[], int n)
 {
     long long comp;
     comp = quicksort(arr, 0, n - 1);
-    //cout<<"hello world"<<endl;
-    cout << comp << endl;
+    return comp;
 }
 
 // Counting sort
-void countingSort(int arr[], int n)
+long long countingSort(int arr[], int n)
 {   
     long long comp = 0;
     int max = arr[0];
@@ -317,10 +323,11 @@ void countingSort(int arr[], int n)
         arr[i] = output[i];
     delete[] count;
     delete[] output;
+    return comp;
 }
 
 // Radix sort
-void radixSort(int arr[], int n)
+long long radixSort(int arr[], int n)
 {
     long long comp = 0;
     int max = arr[0];
@@ -349,10 +356,11 @@ void radixSort(int arr[], int n)
         delete[] output;
         exp *= 10;
     }
+    return comp;
 }
 
 // Flash Sort
-void flashSort(int arr[], int n)
+long long flashSort(int arr[], int n)
 {   
     long long comp = 0;
     int max = arr[0];
@@ -381,4 +389,5 @@ void flashSort(int arr[], int n)
         delete[] output;
         exp *= 10;
     }
+    return comp;
 }
