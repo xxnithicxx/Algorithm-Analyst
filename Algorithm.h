@@ -45,6 +45,7 @@ long long insertionSort(int *arr, int n)
 // Bubble Sort
 long long bubbleSort(int *arr, int n)
 {
+    long long comp = 0;
     for (int i = 0; i < n - 1 && ++comp; i++)
     {   
         for (int j = 0; (j < n - i - 1) && ++comp; j++)
@@ -183,7 +184,7 @@ long long mergeSort(int *arr, int n)
     long long comp = 0;
     // Base case
     if (n <= 1 && ++comp)
-        return;
+        return comp;
 
     // Split the array into two halves
     int mid = n / 2;
@@ -196,8 +197,8 @@ long long mergeSort(int *arr, int n)
         right[i - mid] = arr[i];
 
     // Sort the two halves
-    mergeSort(left, mid);
-    mergeSort(right, n - mid);
+    comp += mergeSort(left, mid);
+    comp += mergeSort(right, n - mid);
 
     // Merge the two halves
     int i = 0, j = 0, k = 0;
@@ -227,11 +228,11 @@ long long mergeSort(int *arr, int n)
 int sortFirstMiddleLast(int arr[], int first, int last)
 {
     int mid = first + (last - first) / 2;
-    if (arr[first] > arr[mid] && ++comp)
+    if (arr[first] > arr[mid])
         swap(arr[first], arr[mid]);
-    if (arr[mid] > arr[last] && ++comp)
+    if (arr[mid] > arr[last])
         swap(arr[mid], arr[last]);
-    if (arr[first] > arr[mid] && ++comp)
+    if (arr[first] > arr[mid])
         swap(arr[first], arr[mid]);
     return mid;
 }

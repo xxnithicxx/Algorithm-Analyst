@@ -154,7 +154,7 @@ int getAlgorithm(string userAlg)
 
 fptr getAlgorithmAddress(int alg)
 {
-    void (*Algorithms[11])(int *, int) = {
+    long long (*Algorithms[11])(int *, int) = {
         selectionSort,
         insertionSort,
         bubbleSort,
