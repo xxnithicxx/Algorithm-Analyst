@@ -1,6 +1,6 @@
 #pragma once
 #include "Base.h"
-
+#include"Display.h"
 bool isNumber(string str) {
     for (int i = 0; i < str.length(); i++)
         if (str[i] < '0' || str[i] >'9') return false;
@@ -16,8 +16,8 @@ bool checkDataAlgorithms(string data) {
                            "heap-sort",
                            "merge-sort",
                            "quick-sort",
-                           "radix-sort",
                            "counting-sort",
+                           "radix-sort",
                            "flash-sort"};
 
     for (int i = 0; i < 11; i++)
@@ -67,6 +67,8 @@ int getUserInput(int argc, char* argv[]) {
     }
 
     if (strcmp(argv[1], "-a") == 0) {
+        outputMode(argv);
+        outputAlgorithm(argv);
         if (argc > 3 && !isNumber(argv[3])) {
             if (checkOutputParam(argv[4])) return 1; else return -1;
         }
@@ -78,6 +80,8 @@ int getUserInput(int argc, char* argv[]) {
         }
     }
     else {
+        outputMode(argv);
+        outputAlgorithm(argv);
         if (!checkDataAlgorithms(argv[3])) {
             cout << "Undefined data type" << endl;
             return -1;

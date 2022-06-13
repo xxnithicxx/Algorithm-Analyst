@@ -1,3 +1,4 @@
+
 #pragma once
 #include "stdio.h"
 #include "stdlib.h"
@@ -21,12 +22,17 @@ using namespace std;
 #define COMP 0x10
 #define BOTH 0x11
 
-#define SELECTION_SORT "selection-sort"
-#define	INSERTION_SORT "insertion-sort"
-#define BUBBLE_SORT "bubble-sort"
-#define HEAP_SORT "heap-sort"
-#define MERGE_SORT "merge-sort"
-#define SHAKER_SORT "SHAKER-sort"
-#define SELECTION_SORT "selection-sort"
-#define SELECTION_SORT "selection-sort"
-#define SELECTION_SORT "selection-sort"
+#define MILISECOND 1000
+typedef long long (*fptr)(int *, int);
+
+struct FileQuac {
+    int *rand;
+    int *nsort;
+    int *sort;
+    int *rev;
+};
+
+struct PosOfAlgo{
+    int pos1;
+    int pos2;
+};
