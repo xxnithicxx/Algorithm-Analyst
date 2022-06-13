@@ -22,6 +22,7 @@ using namespace std;
 #define COMP 0x10
 #define BOTH 0x11
 
+#define MILISECOND 1000
 typedef long long (*fptr)(int *, int);
 
 struct FileQuac {

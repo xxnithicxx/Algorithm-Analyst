@@ -6,9 +6,6 @@ int main(int argc, char *argv[])
 {
     int command = getUserInput(argc, argv);
     string data = getData(argv, command);
-
     runApp(argc, argv, command, data);
-    //cout<<data<<endl;
-    //int n;
     return 0;
 }

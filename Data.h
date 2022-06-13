@@ -1,6 +1,6 @@
 #pragma once
 #include "DataGenerator.h"
-
+#include"Display.h"
 int getInputOrder(string order)
 {
 	string InputOrder[] = {
@@ -68,7 +68,6 @@ string getData(char **argv, int comment)
 		GenerateNearlySortedData(nsortArr, n);
 		GenerateSortedData(sortArr, n);
 		GenerateReverseData(revArr, n);
-
 		fileName << n << endl;
 		for (int i = 0; i < n; i++)
 			fileName << randArr[i] << " " << nsortArr[i] << " " << sortArr[i] << " " << revArr[i] << endl;
@@ -96,7 +95,7 @@ string getData(char **argv, int comment)
 		int order = getInputOrder(argv[5]);
 		int *arr = new int[n];
 		GenerateData(arr, n, order);
-		cout << order << endl;
+		//cout << order << endl;
 		fileName << n << endl;
 		for (int i = 0; i < n; i++)
 		{
@@ -199,7 +198,6 @@ FileQuac readFileQuac(string name, int &numberOfElements)
     }
 
     fileIn >> numberOfElements;
-
     FileQuac arr;
     int *arrRand = new int[numberOfElements];
     int *arrSort = new int[numberOfElements];
@@ -208,16 +206,21 @@ FileQuac readFileQuac(string name, int &numberOfElements)
 
     while (!fileIn.eof())
     {
-        for (int i = numberOfElements; i < numberOfElements; i++)
+        for (int i = 0; i < numberOfElements; i++)
         {
-            fileIn >> arrRand[i] >> arrSort[i] >> arrNsort[i] >> arrRev[i];
+            fileIn >> arrRand[i] >> arrNsort[i] >> arrSort[i] >> arrRev[i];
         }
     }
-
     arr.rand = arrRand;
     arr.sort = arrSort;
     arr.nsort = arrNsort;
     arr.rev = arrRev;
+	
+	delete[] arrRand;
+	delete[]arrNsort;
+	delete[] arrSort;
+	delete[] arrRev;
+
 
     return arr;
 }
