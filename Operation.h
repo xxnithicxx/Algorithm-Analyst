@@ -1,11 +1,12 @@
 #pragma once
+#include "AlgorithmC.h"
 #include "Algorithm.h"
 #include "Data.h"
 #include "Display.h"
 
 // Take user mode parameters
 
-void handleSingArr(string data, fptr nameOfAlgo1, fptr nameOfAlgo2, int modeOutput, int command, char *argv[])
+void handleSingArr(string data, fptrC nameOfAlgo1, fptrC nameOfAlgo2, int modeOutput, int command, char *argv[])
 {
     int n;
     int *arr = readFileSingle(data, n);
@@ -27,7 +28,7 @@ void handleSingArr(string data, fptr nameOfAlgo1, fptr nameOfAlgo2, int modeOutp
     displayOutput(data, command, n, modeOutput, timeRun1, timeRun2, count1, count2, argv);
 }
 
-void handleQuacArr(string data, fptr nameOfAlgo1, int modeOutput)
+void handleQuacArr(string data, fptrC nameOfAlgo1, int modeOutput)
 {
     int n;
     FileQuac arr = readFileQuac(data, n);
@@ -64,8 +65,8 @@ void runApp(int argc, char *argv[], int command, string data)
 {
     PosOfAlgo posOfAlgo = getPosAlgo(argc, argv, command);
 
-    fptr nameOfAlgo1 = getAlgorithmAddress(posOfAlgo.pos1);
-    fptr nameOfAlgo2 = getAlgorithmAddress(posOfAlgo.pos2);
+    fptrC nameOfAlgo1 = getAlgorithmAddress(posOfAlgo.pos1);
+    fptrC nameOfAlgo2 = getAlgorithmAddress(posOfAlgo.pos2);
 
     int modeOutput = getOutputParameter(argc, argv);
 

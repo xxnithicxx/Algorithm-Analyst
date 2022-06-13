@@ -1,88 +1,76 @@
 #pragma once
 #include "Base.h"
 
-// Select Sort
-long long selectionSort(int *arr, int n)
+// Selection Sort
+void SelectionSort(int *arr, int n)
 {
-    long long comp = 0;
-    for (int i = 0; i < n - 1 && ++comp; i++)
+    for (int i = 0; i < n - 1; i++)
     {
         int min = i;
-        for (int j = i + 1; j < n && ++comp; j++)
+        for (int j = i + 1; j < n; j++)
         {
-            if (arr[j] < arr[min] && ++comp) {
+            if (arr[j] < arr[min])
                 min = j;
-            }
         }
-        if (min != i && ++comp)
-        {
-            int temp = arr[i];
-            arr[i] = arr[min];
-            arr[min] = temp;
-        }
+        int temp = arr[i];
+        arr[i] = arr[min];
+        arr[min] = temp;
     }
-    return comp;
 }
 
 // Insertion Sort
-long long insertionSort(int *arr, int n)
+void InsertionSort(int *arr, int n)
 {
-    long long comp = 0;
-    for (int i = 1; i < n && ++comp; i++)
+    for (int i = 1; i < n; i++)
     {
-        int temp = arr[i];
-        int j = i - 1;
-        while ((j >= 0 && ++comp ) && (arr[j] > temp && ++comp))
-        {   
-            arr[j + 1] = arr[j];
+        int j = i;
+        while (j > 0 && arr[j] < arr[j - 1])
+        {
+            int temp = arr[j];
+            arr[j] = arr[j - 1];
+            arr[j - 1] = temp;
             j--;
         }
-        arr[j + 1] = temp;
     }
-    return comp;
 }
 
 // Bubble Sort
-long long bubbleSort(int *arr, int n)
+void BubbleSort(int *arr, int n)
 {
-    long long comp = 0;
-    for (int i = 0; i < n - 1 && ++comp; i++)
-    {   
-        for (int j = 0; (j < n - i - 1) && ++comp; j++)
-        {   
-            if (arr[j] > arr[j + 1] && ++comp)
-            {   
+    for (int i = 0; i < n - 1; i++)
+    {
+        for (int j = 0; j < n - i - 1; j++)
+        {
+            if (arr[j] > arr[j + 1])
+            {
                 int temp = arr[j];
                 arr[j] = arr[j + 1];
                 arr[j + 1] = temp;
             }
         }
     }
-    return comp;
 }
 
 // Shaker Sort
-long long shakerSort(int *arr, int n)
-{   
-    long long comp = 0;
-    int left = 0;
-    int right = n - 1;
-    while (left < right && ++comp)
+void ShakerSort(int *arr, int n)
+{
+    int left = 0, right = n - 1;
+    while (left < right)
     {
-        for (int i = left; i < right && ++comp; i++)
-        {   
-            if (arr[i] > arr[i + 1] && ++comp)
-            {   
+        for (int i = left; i < right; i++)
+        {
+            if (arr[i] > arr[i + 1])
+            {
                 int temp = arr[i];
                 arr[i] = arr[i + 1];
                 arr[i + 1] = temp;
             }
         }
         right--;
-        for (int i = right; i > left && ++comp; i--)
-        {   
-            if (arr[i] < arr[i - 1] && ++comp)
-            {   
+        for (int i = right; i > left; i--)
+        {
+            if (arr[i] < arr[i - 1])
+            {
                 int temp = arr[i];
                 arr[i] = arr[i - 1];
                 arr[i - 1] = temp;
@@ -90,30 +78,27 @@ long long shakerSort(int *arr, int n)
         }
         left++;
     }
-    return comp;
 }
 
 // Shell Sort
-long long shellSort(int *arr, int n)
-{   
-    long long comp = 0;
+void ShellSort(int *arr, int n)
+{
     int gap = n / 2;
-    while (gap > 0 && ++comp)
+    while (gap > 0)
     {
-        for (int i = gap; i < n && ++comp; i++)
-        {   
-            int temp = arr[i];
-            int j = i - gap;
-            while ((j >= 0 && ++comp) && (arr[j] > temp && ++comp))
-            {   
-                arr[j + gap] = arr[j];
+        for (int i = gap; i < n; i++)
+        {
+            int j = i;
+            while (j >= gap && arr[j] < arr[j - gap])
+            {
+                int temp = arr[j];
+                arr[j] = arr[j - gap];
+                arr[j - gap] = temp;
                 j -= gap;
             }
-            arr[j + gap] = temp;
         }
         gap /= 2;
     }
-    return comp;
 }
 
 // Heap Sort
@@ -134,20 +119,19 @@ void swap(int *a, int *b)
     *b = temp;
 }
 
-long long heapify(int *arr, int n, int i)
+void heapify(int *arr, int n, int i)
 {
-    long long comp = 0;
     int largest = i;
     int l = leftChild(i);
     int r = rightChild(i);
 
-    if ((l < n && ++comp) && (arr[l] > arr[largest] && ++comp))
+    if (l < n && arr[l] > arr[largest])
         largest = l;
 
-    if ((r < n && ++comp) && (arr[r] > arr[largest] && ++comp))
+    if (r < n && arr[r] > arr[largest])
         largest = r;
 
-    if (largest != i && ++comp)
+    if (largest != i)
     {
         // Swap
         int temp = arr[i];
@@ -155,73 +139,77 @@ long long heapify(int *arr, int n, int i)
         arr[largest] = temp;
 
         // Recursively heapify the affected sub-tree
-        comp += heapify(arr, n, largest); // comp get from the heapify function
+        heapify(arr, n, largest);
     }
-    return comp;
 }
 
-long long heapSort(int *arr, int n)
-{   
-    long long comp = 0;
+void Heapsort(int *&arr, int n)
+{
     // Build heap (rearrange array)
-    for (int i = n / 2 - 1; i >= 0 && ++comp; i--)
-    {    //comp of the for loop
-        comp += heapify(arr, n, i); // comp get from the heapify function
+    for (int i = n / 2 - 1; i >= 0; i--)
+    {
+        heapify(arr, n, i);
     }
 
-    for (int i = n - 1; i >= 0 && ++comp; i--)
-    {   
+    for (int i = n - 1; i >= 0; i--)
+    {
         // Swap current element with the last element and start heapifying from the root
         swap(&arr[0], &arr[i]);
-        comp += heapify(arr, i, 0);
+        heapify(arr, i, 0);
     }
-    return comp;
 }
 
 // Merge Sort
-long long mergeSort(int *arr, int n)
-{   
-    long long comp = 0;
+void MergeSort(int *arr, int n)
+{
     // Base case
-    if (n <= 1 && ++comp)
-        return comp;
+    if (n <= 1)
+        return;
 
     // Split the array into two halves
     int mid = n / 2;
     int *left = new int[mid];
     int *right = new int[n - mid];
 
-    for (int i = 0; i < mid && ++comp; i++)
+    for (int i = 0; i < mid; i++)
         left[i] = arr[i];
-    for (int i = mid; i < n && ++comp; i++)
+    for (int i = mid; i < n; i++)
         right[i - mid] = arr[i];
 
     // Sort the two halves
-    comp += mergeSort(left, mid);
-    comp += mergeSort(right, n - mid);
+    MergeSort(left, mid);
+    MergeSort(right, n - mid);
 
     // Merge the two halves
     int i = 0, j = 0, k = 0;
-    while ((i < mid && ++comp) && (j < n - mid && ++comp))
+    while (i < mid && j < n - mid)
     {
-        if (left[i] <= right[j] && ++comp)
-            arr[k++] = left[i++];
+        if (left[i] < right[j])
+        {
+            arr[k] = left[i];
+            i++;
+        }
         else
-            arr[k++] = right[j++];
+        {
+            arr[k] = right[j];
+            j++;
+        }
+        k++;
     }
 
     // Copy the remaining elements of left
-    while (i < mid && ++comp)
+    while (i < mid)
+    {
         arr[k++] = left[i++];
+    }
 
-    // Copy the remaining elements of right
-    while (j < n - mid && ++comp)
+    while (j < n - mid)
+    {
         arr[k++] = right[j++];
+    }
 
-    // Free the memory allocated to the two halves
     delete[] left;
     delete[] right;
-    return comp;
 }
 
 // Quick Sort
@@ -237,11 +225,10 @@ int sortFirstMiddleLast(int arr[], int first, int last)
     return mid;
 }
 
-int partition(int arr[], int first, int last, long long& comp)
+int partition(int arr[], int first, int last)
 {
     // Choose pivot using median-of-three selection
     int pivotIndex = sortFirstMiddleLast(arr, first, last);
-    comp += 3;
     // Reposition pivot so it is last in the array
     swap(arr[pivotIndex], arr[last - 1]);
     pivotIndex = last - 1;
@@ -249,18 +236,16 @@ int partition(int arr[], int first, int last, long long& comp)
     // Determine the regions S1 and S2
     int indexFromLeft = first + 1, indexFromRight = last - 2;
     int done = false;
-    while (!done && ++comp)
+    while (!done)
     {
         // Locate first entry on left that is >= pivot
-        while (arr[indexFromLeft] < pivot && ++comp) {
+        while (arr[indexFromLeft] < pivot)
             indexFromLeft++;
-        }
         // Locate first entry on right that is <= pivot
-        while (arr[indexFromRight] > pivot && ++comp) {
+        while (arr[indexFromRight] > pivot)
             indexFromRight--;
-        }
         // Swap the two found entries
-        if (indexFromLeft <= indexFromRight && ++comp)
+        if (indexFromLeft < indexFromRight)
         {
             swap(arr[indexFromLeft], arr[indexFromRight]);
             indexFromLeft++;
@@ -269,126 +254,165 @@ int partition(int arr[], int first, int last, long long& comp)
         else
             done = true;
     }
-    // Place pivot in proper position between S1 and S2
-    swap(arr[pivotIndex], arr[indexFromLeft]);
-    pivotIndex = indexFromLeft; // and mark its new location
+    // Place pivot in the right location
+    swap(arr[indexFromLeft], arr[pivotIndex]);
+    pivotIndex = indexFromLeft; // New pivot index
     return pivotIndex;
 }
 
-long long quicksort(int arr[], int first, int last)
+void Quicksort(int arr[], int first, int last)
 {
-    long long subComp = 0;
     if (last - first + 1 < 10)
-        insertionSort(arr + first, last - first + 1);
+        InsertionSort(arr + first, last - first + 1);
     else
     {
         // Create the partition: S1 | Pivot | S2
-        int pivotIndex = partition(arr, first, last, subComp);
-        // Sort subarrays S1 and S2
-       
-        subComp += quicksort(arr, first, pivotIndex - 1);
-        subComp += quicksort(arr, pivotIndex + 1, last);
+        int pivotIndex = partition(arr, first, last);
+        // Sort the two sub-arrays
+
+        Quicksort(arr, first, pivotIndex - 1);
+        Quicksort(arr, pivotIndex + 1, last);
     }
-    return subComp;
+    return;
 }
 
-long long quickSort(int arr[], int n)
+void QuickSort(int *arr, int n)
 {
-    long long comp;
-    comp = quicksort(arr, 0, n - 1);
-    return comp;
+    Quicksort(arr, 0, n - 1);
 }
 
-// Counting sort
-long long countingSort(int arr[], int n)
-{   
-    long long comp = 0;
+// Counting Sort
+void CountingSort(int *arr, int n)
+{
     int max = arr[0];
-    for (int i = 1; i < n && ++comp; i++)
-        if (arr[i] > max && ++comp)
+    for (int i = 1; i < n; i++)
+    {
+        if (arr[i] > max)
             max = arr[i];
+    }
     int *count = new int[max + 1];
-    for (int i = 0; i <= max && ++comp; i++)
+    for (int i = 0; i <= max; i++)
         count[i] = 0;
-    for (int i = 0; i < n && ++comp; i++)
+    for (int i = 0; i < n; i++)
         count[arr[i]]++;
-    for (int i = 1; i <= max && ++comp; i++)
+    for (int i = 1; i <= max; i++)
         count[i] += count[i - 1];
     int *output = new int[n];
-    for (int i = n - 1; i >= 0 && ++comp; i--)
+    for (int i = n - 1; i >= 0; i--)
     {
         output[count[arr[i]] - 1] = arr[i];
         count[arr[i]]--;
     }
-    for (int i = 0; i < n && ++comp; i++)
+    for (int i = 0; i < n; i++)
         arr[i] = output[i];
     delete[] count;
     delete[] output;
-    return comp;
+    return;
 }
 
-// Radix sort
-long long radixSort(int arr[], int n)
+// Radix Sort
+void RadixSort(int *arr, int n)
 {
-    long long comp = 0;
     int max = arr[0];
-    for (int i = 1; i < n && ++comp; i++)
-        if (arr[i] > max && ++comp)
+    for (int i = 1; i < n; i++)
+    {
+        if (arr[i] > max)
             max = arr[i];
+    }
     int exp = 1;
-    while (max / exp > 0 && ++comp)
+    while (max / exp > 0)
     {
         int *count = new int[10];
-        for (int i = 0; i < 10 && ++comp; i++)
+        for (int i = 0; i < 10; i++)
             count[i] = 0;
-        for (int i = 0; i < n && ++comp; i++)
+        for (int i = 0; i < n; i++)
             count[(arr[i] / exp) % 10]++;
-        for (int i = 1; i < 10 && ++comp; i++)
+        for (int i = 1; i < 10; i++)
             count[i] += count[i - 1];
         int *output = new int[n];
-        for (int i = n - 1; i >= 0 && ++comp; i--)
+        for (int i = n - 1; i >= 0; i--)
         {
             output[count[(arr[i] / exp) % 10] - 1] = arr[i];
             count[(arr[i] / exp) % 10]--;
         }
-        for (int i = 0; i < n && ++comp; i++)
+        for (int i = 0; i < n; i++)
             arr[i] = output[i];
         delete[] count;
         delete[] output;
         exp *= 10;
     }
-    return comp;
+    return;
 }
 
-// Flash Sort
-long long flashSort(int arr[], int n)
-{   
-    long long comp = 0;
-    int max = arr[0];
-    for (int i = 1; i < n && ++comp; i++)
-        if (arr[i] > max && ++comp)
-            max = arr[i];
-    int exp = 1;
-    while (max / exp > 0 && ++comp)
+/**
+ * Flash Sort
+ * Average complexity: O(n + m)
+ * Best Case: O(n + m)
+ * Worst Case: O(n^2)
+ * Space: O(m)
+ * Note: m = 0.43n
+ * Not Stable
+ * @reference  https://github.com/leduythuccs/Sorting-Algorithms/blob/master/sorting-methods/flash_sort.h
+ *             https://pages.cs.wisc.edu/~deppeler/cs400/readings/Sorting/Dr.%20Dobb's%20Journal%20February%201998_%20The%20Flashsort1%20Algorithm.pdf
+ */
+void FlashSort(int a[], int n)
+{
+    int *__L = new int[n];
+    if (n <= 1)
+        return;
+    int m = n * 0.43;
+    if (m <= 2)
+        m = 2;
+    // int m = n;
+    for (int i = 0; i < m; ++i)
+        __L[i] = 0;
+    int Mx = a[0], Mn = a[0];
+    for (int i = 1; i < n; ++i)
     {
-        int *count = new int[10];
-        for (int i = 0; i < 10 && ++comp; i++)
-            count[i] = 0;
-        for (int i = 0; i < n && ++comp; i++)
-            count[(arr[i] / exp) % 10]++;
-        for (int i = 1; i < 10 && ++comp; i++)
-            count[i] += count[i - 1];
-        int *output = new int[n];
-        for (int i = n - 1; i >= 0 && ++comp; i--)
-        {
-            output[count[(arr[i] / exp) % 10] - 1] = arr[i];
-            count[(arr[i] / exp) % 10]--;
-        }
-        for (int i = 0; i < n && ++comp; i++)
-            arr[i] = output[i];
-        delete[] count;
-        delete[] output;
-        exp *= 10;
+        if (Mx < a[i])
+            Mx = a[i];
+        if (Mn > a[i])
+            Mn = a[i];
     }
-    return comp;
+    if (Mx == Mn)
+        return;
+#define getK(x) 1ll * (m - 1) * (x - Mn) / (Mx - Mn)
+    for (int i = 0; i < n; ++i)
+        ++__L[getK(a[i])];
+    for (int i = 1; i < m; ++i)
+        __L[i] += __L[i - 1];
+    // step 2
+    int count = 0;
+    int i = 0;
+    while (count < n)
+    {
+        int k = getK(a[i]);
+        while (i >= __L[k])
+            k = getK(a[++i]);
+        int z = a[i];
+        while (i != __L[k])
+        {
+            k = getK(z);
+            int y = a[__L[k] - 1];
+            a[--__L[k]] = z;
+            z = y;
+            ++count;
+        }
+    }
+    // step 3
+    for (int k = 1; k < m; ++k)
+    {
+        for (int i = __L[k] - 2; i >= __L[k - 1]; --i)
+            if (a[i] > a[i + 1])
+            {
+                int t = a[i], j = i;
+                while (t > a[j + 1])
+                {
+                    a[j] = a[j + 1];
+                    ++j;
+                }
+                a[j] = t;
+            }
+    }
+    delete[] __L;
 }

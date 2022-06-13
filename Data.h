@@ -1,6 +1,6 @@
 #pragma once
 #include "DataGenerator.h"
-#include"Display.h"
+#include "Display.h"
 int getInputOrder(string order)
 {
 	string InputOrder[] = {
@@ -151,7 +151,7 @@ int getAlgorithm(string userAlg)
     return -1;
 }
 
-fptr getAlgorithmAddress(int alg)
+fptrC getAlgorithmAddress(int alg)
 {
     long long (*Algorithms[11])(int *, int) = {
         selectionSort,

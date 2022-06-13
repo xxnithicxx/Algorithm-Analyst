@@ -23,7 +23,8 @@ using namespace std;
 #define BOTH 0x11
 
 #define MILISECOND 1000
-typedef long long (*fptr)(int *, int);
+typedef long long (*fptrC)(int *, int);
+typedef void (*fptrA)(int *, int);
 
 struct FileQuac {
     int *rand;
