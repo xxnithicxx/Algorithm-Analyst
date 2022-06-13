@@ -215,11 +215,6 @@ FileQuac readFileQuac(string name, int &numberOfElements)
     arr.sort = arrSort;
     arr.nsort = arrNsort;
     arr.rev = arrRev;
-	delete[] arrRand;
-	delete[]arrNsort;
-	delete[] arrSort;
-	delete[] arrRev;
-
 
     return arr;
 }

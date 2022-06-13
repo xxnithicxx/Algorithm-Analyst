@@ -36,6 +36,7 @@ void handleQuacArr(string data, fptr nameOfAlgo1, int modeOutput) {
 
     timeStart1 = clock();
     count1 = nameOfAlgo1(arr.rand, n);
+    //cout<<arr.rand<<endl;
     timeEnd1 = clock();
     timeRun1 = double(timeEnd1 - timeStart1) / CLOCKS_PER_SEC;
 
