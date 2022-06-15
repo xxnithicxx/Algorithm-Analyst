@@ -143,7 +143,7 @@ void heapify(int *arr, int n, int i)
     }
 }
 
-void Heapsort(int *&arr, int n)
+void HeapSort(int *arr, int n)
 {
     // Build heap (rearrange array)
     for (int i = n / 2 - 1; i >= 0; i--)

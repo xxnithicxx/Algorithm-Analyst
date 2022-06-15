@@ -1,6 +1,7 @@
 #pragma once
 #include "DataGenerator.h"
 #include "Display.h"
+#include"output.h"
 int getInputOrder(string order)
 {
 	string InputOrder[] = {
@@ -68,6 +69,10 @@ string getData(char **argv, int comment)
 		GenerateNearlySortedData(nsortArr, n);
 		GenerateSortedData(sortArr, n);
 		GenerateReverseData(revArr, n);
+		writeFile("input_1.txt", randArr, n);
+		writeFile("input_2.txt", nsortArr, n);
+		writeFile("input_3.txt", sortArr, n);
+		writeFile("input_4.txt", revArr, n);
 		fileName << n << endl;
 		for (int i = 0; i < n; i++)
 			fileName << randArr[i] << " " << nsortArr[i] << " " << sortArr[i] << " " << revArr[i] << endl;
@@ -167,7 +172,21 @@ fptrC getAlgorithmAddress(int alg)
         flashSort};
     return Algorithms[alg];
 }
-
+fptrA getAlgorithmAddressA(int alg) {
+	void (*Algorithms[11])(int*, int) = {
+		SelectionSort,
+		InsertionSort,
+		BubbleSort,
+		ShakerSort,
+		ShellSort,
+		HeapSort,
+		MergeSort,
+		QuickSort,
+		CountingSort,
+		RadixSort,
+		FlashSort };
+	return Algorithms[alg];
+}
 int *readFileSingle(string name, int &numberOfElements)
 {
     ifstream fileIn;

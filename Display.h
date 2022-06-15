@@ -24,9 +24,9 @@ void outputInputOder(char *inputOder) {
 }
 void outputRunTime(int command, double timeRun1,double timeRun2) {
 	if (command != 4 && command != 5)
-		cout << "Running time (if required) :" << timeRun1 * MILISECOND << endl;
+		cout << "Running time (if required) :" << timeRun1 * MILISECOND <<" ms"<< endl;
 	else {
-		cout << "Running time (if required) :" << timeRun1 * MILISECOND << "|" << timeRun2 * MILISECOND << endl;
+		cout << "Running time (if required) :" << timeRun1 * MILISECOND <<" ms"<< "|" << timeRun2 * MILISECOND<<" ms" << endl;
 	}
 }
 void outputCompare(int command,long comp1,long comp2) {
